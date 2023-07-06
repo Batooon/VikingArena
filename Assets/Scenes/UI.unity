@@ -303,7 +303,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -369,7 +369,7 @@ MonoBehaviour:
   m_enableKerning: 1
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
-  m_isRichText: 1
+  m_isRichText: 0
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -804,9 +804,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1432,7 +1432,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1762,14 +1762,6 @@ PrefabInstance:
       value: UnlockAll_button
       objectReference: {fileID: 0}
     - target: {fileID: 953130860444314462, guid: b48a068002bac5646a07a75e6a446c6e, type: 3}
-      propertyPath: m_Type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 953130860444314462, guid: b48a068002bac5646a07a75e6a446c6e, type: 3}
-      propertyPath: m_FillCenter
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 953130860444314462, guid: b48a068002bac5646a07a75e6a446c6e, type: 3}
       propertyPath: m_PreserveAspect
       value: 0
       objectReference: {fileID: 0}
@@ -1812,30 +1804,6 @@ PrefabInstance:
     - target: {fileID: 953130861463598873, guid: b48a068002bac5646a07a75e6a446c6e, type: 3}
       propertyPath: m_fontSize
       value: 50.43
-      objectReference: {fileID: 0}
-    - target: {fileID: 953130861463598873, guid: b48a068002bac5646a07a75e6a446c6e, type: 3}
-      propertyPath: m_margin.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 953130861463598873, guid: b48a068002bac5646a07a75e6a446c6e, type: 3}
-      propertyPath: m_margin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 953130861463598873, guid: b48a068002bac5646a07a75e6a446c6e, type: 3}
-      propertyPath: m_margin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 953130861463598873, guid: b48a068002bac5646a07a75e6a446c6e, type: 3}
-      propertyPath: m_margin.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 953130861463598873, guid: b48a068002bac5646a07a75e6a446c6e, type: 3}
-      propertyPath: m_enableAutoSizing
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 953130861463598873, guid: b48a068002bac5646a07a75e6a446c6e, type: 3}
-      propertyPath: m_enableWordWrapping
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b48a068002bac5646a07a75e6a446c6e, type: 3}
