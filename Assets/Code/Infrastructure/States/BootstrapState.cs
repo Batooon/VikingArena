@@ -1,6 +1,9 @@
 using Code.Infrastructure.Factory;
 using Code.Infrastructure.Services;
+using Code.Infrastructure.Services.AssetManagement;
 using Code.Infrastructure.Services.Input;
+using Code.Infrastructure.Services.Progress;
+using Code.Infrastructure.Services.StaticData;
 
 namespace Code.Infrastructure.States
 {
@@ -39,7 +42,39 @@ namespace Code.Infrastructure.States
         private void RegisterServices()
         {
             _services.RegisterSingle<IInputService>(new StandaloneInputService());
-            _services.RegisterSingle<IGameFactory>(new GameFactory());
+            _services.RegisterSingle<IAssets>(new AssetProvider());
+
+            RegisterStaticData();
+
+            RegisterProgress();
+
+            _services.RegisterSingle<IGameFactory>(new GameFactory(
+                _services.Single<IAssets>(),
+                _services.Single<IStaticDataService>(),
+                _services.Single<IProgressService>(),
+                _services.Single<IInputService>()
+            ));
+        }
+
+        private void RegisterStaticData()
+        {
+            IStaticDataService staticData = new StaticDataService();
+            staticData.Load();
+            _services.RegisterSingle(staticData);
+        }
+
+        private void RegisterProgress()
+        {
+            IProgressService progressService = new ProgressService();
+            _services.RegisterSingle(progressService);
+            progressService.Progress = new PlayerProgress
+            {
+                HeroStats =
+                {
+                    Damage = 1,
+                    Cleavage = .5f,
+                }
+            };
         }
     }
 }

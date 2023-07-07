@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Code.Infrastructure.Factory;
 using Code.Infrastructure.Services;
+using Code.Infrastructure.Services.StaticData;
 
 namespace Code.Infrastructure.States
 {
@@ -15,7 +16,8 @@ namespace Code.Infrastructure.States
             _states = new Dictionary<Type, IExitableState>()
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, services, sceneLoader),
-                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, services.Single<IGameFactory>()),
+                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, services.Single<IGameFactory>(),
+                    services.Single<IStaticDataService>()),
                 [typeof(GameLoopState)] = new GameLoopState(this),
             };
         }
