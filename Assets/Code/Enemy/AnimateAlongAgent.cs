@@ -13,13 +13,13 @@ namespace Code.Enemy
 
         private void Update()
         {
-            if(ShouldMove())
+            if (ShouldMove())
                 Animator.Move();
             else
                 Animator.StopMoving();
         }
 
-        private bool ShouldMove() => 
+        private bool ShouldMove() =>
             Agent.velocity.sqrMagnitude > MinimalSquaredSpeed && Agent.remainingDistance > Agent.radius;
     }
 }

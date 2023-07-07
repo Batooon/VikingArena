@@ -11,6 +11,7 @@ namespace Code.Hero
         public event Action HealthChanged;
 
         private float _current;
+
         public float Current
         {
             get => _current;
@@ -25,7 +26,7 @@ namespace Code.Hero
         }
 
         public float Max { get; set; }
-        
+
         public void TakeDamage(float damage)
         {
             if (Current <= 0)

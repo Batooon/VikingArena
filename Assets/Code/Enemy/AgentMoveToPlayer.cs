@@ -11,7 +11,7 @@ namespace Code.Enemy
 
         private Transform _playerTransform;
 
-        public void Construct(Transform playerTransform) => 
+        public void Construct(Transform playerTransform) =>
             _playerTransform = playerTransform;
 
         private void Update()
@@ -20,7 +20,7 @@ namespace Code.Enemy
                 SetDestinationForAgent();
         }
 
-        private bool HeroNotReached() => 
+        private bool HeroNotReached() =>
             (_playerTransform.position - Agent.transform.position).sqrMagnitude >= MinimalSquaredDistance;
 
         private void SetDestinationForAgent()

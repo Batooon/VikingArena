@@ -21,26 +21,28 @@ namespace Code.Hero
         public event Action<AnimatorState> StateEntered;
         public event Action<AnimatorState> StateExited;
 
+        public bool IsAttacking => State == AnimatorState.Attack;
+
         public AnimatorState State { get; private set; }
 
         private Animator _animator;
 
-        private void Awake() => 
+        private void Awake() =>
             _animator = GetComponent<Animator>();
 
-        public void PlayHit() => 
+        public void PlayHit() =>
             _animator.SetTrigger(Hit);
 
-        public void PlayDeath() => 
+        public void PlayDeath() =>
             _animator.SetTrigger(Die);
 
-        public void Move() => 
+        public void Move() =>
             _animator.SetBool(IsMoving, true);
 
-        public void StopMoving() => 
+        public void StopMoving() =>
             _animator.SetBool(IsMoving, false);
 
-        public void PlayAttack() => 
+        public void PlayAttack() =>
             _animator.SetTrigger(Attack);
 
         public void EnteredState(int stateHash)
@@ -49,7 +51,7 @@ namespace Code.Hero
             StateEntered?.Invoke(State);
         }
 
-        public void ExitedState(int stateHash) => 
+        public void ExitedState(int stateHash) =>
             StateExited?.Invoke(StateFor(stateHash));
 
         private AnimatorState StateFor(int stateHash)

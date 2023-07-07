@@ -11,7 +11,7 @@ namespace Code.Hero
 
         private void Update()
         {
-            if(ShouldMove())
+            if (ShouldMove())
                 Animator.Move();
             else
                 Animator.StopMoving();
