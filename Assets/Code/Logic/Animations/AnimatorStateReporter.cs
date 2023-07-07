@@ -5,7 +5,7 @@ namespace Code.Logic.Animations
     public class AnimatorStateReporter : StateMachineBehaviour
     {
         private IAnimationStateReader _stateReader;
-        
+
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo,
             int layerIndex)
         {

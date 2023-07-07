@@ -9,7 +9,7 @@ namespace Code.Infrastructure
     {
         private readonly ICoroutineRunner _coroutineRunner;
 
-        public SceneLoader(ICoroutineRunner coroutineRunner) => 
+        public SceneLoader(ICoroutineRunner coroutineRunner) =>
             _coroutineRunner = coroutineRunner;
 
         public void Load(string name, Action onLoaded = null)
@@ -29,7 +29,7 @@ namespace Code.Infrastructure
 
             while (waitNextScene.isDone == false)
                 yield return null;
-            
+
             onLoaded?.Invoke();
         }
     }

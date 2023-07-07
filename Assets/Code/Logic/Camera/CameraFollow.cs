@@ -26,7 +26,7 @@ namespace Code.Logic.Camera
         {
             if (Following == null)
                 return;
-            
+
             Quaternion rotation = Following.rotation * Quaternion.Euler(VerticalRotation(), 0, 0);
             var position = rotation * new Vector3(0, 0, -Distance) + FollowingPointPosition();
 

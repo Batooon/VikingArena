@@ -4,7 +4,7 @@ namespace Code.Infrastructure.States
     {
         void Enter();
     }
-    
+
     public interface IExitableState
     {
         void Exit();
