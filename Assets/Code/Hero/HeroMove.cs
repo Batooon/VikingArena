@@ -6,6 +6,7 @@ namespace Code.Hero
 {
     public class HeroMove : MonoBehaviour
     {
+        public float RotationSensitivity;
         public float MovementSpeed;
         public CharacterController CharacterController;
 
@@ -23,6 +24,20 @@ namespace Code.Hero
         }
 
         private void Update()
+        {
+            Move();
+            Rotate();
+        }
+
+        private void Rotate()
+        {
+            var rotation = _inputService.RotationAxis;
+            rotation.x = 0;
+            rotation *= RotationSensitivity;
+            transform.Rotate(rotation);
+        }
+
+        private void Move()
         {
             Vector3 movementVector = Vector3.zero;
             if (_inputService.Axis.sqrMagnitude > Constants.Epsilon)

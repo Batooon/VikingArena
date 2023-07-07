@@ -87,6 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7c4e5242301455c801ad15edc0726fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RotationSensitivity: 3
   MovementSpeed: 4
   CharacterController: {fileID: 1845386381477720920}
 --- !u!114 &6923148935919313168
