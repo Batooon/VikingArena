@@ -8,12 +8,12 @@ namespace Code.Infrastructure.Services.Input
         protected const string Vertical = "Vertical";
         protected const string HorizontalRotation = "Mouse X";
         protected const string VerticalRotation = "Mouse Y";
-        private const string Attack = "Fire";
-        
+        private const string Attack = "Fire1";
+
         public abstract Vector2 Axis { get; }
         public abstract Vector2 RotationAxis { get; }
 
-        public bool IsAttackPressed() => 
+        public bool IsAttackPressed() =>
             UnityEngine.Input.GetButtonDown(Attack);
     }
 }

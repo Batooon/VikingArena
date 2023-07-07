@@ -7,7 +7,7 @@ namespace Code.Infrastructure.Services.Input
         public override Vector2 Axis => UnityAxis();
         public override Vector2 RotationAxis => UnityRotation();
 
-        private Vector2 UnityAxis() => 
+        private Vector2 UnityAxis() =>
             new(UnityEngine.Input.GetAxis(Horizontal), UnityEngine.Input.GetAxis(Vertical));
 
         private Vector2 UnityRotation() =>
