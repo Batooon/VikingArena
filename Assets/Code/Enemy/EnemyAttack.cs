@@ -10,9 +10,9 @@ namespace Code.Enemy
     {
         public EnemyAnimator Animator;
         public Cooldown Cooldown;
-        public float EffectiveDistance = .5f;
-        public float Damage = 10f;
-        public float Cleavage = .5f;
+        public float EffectiveDistance;
+        public float Damage;
+        public float Cleavage;
 
         private Transform _playerTransform;
         private int _layerMask;
@@ -34,6 +34,12 @@ namespace Code.Enemy
                 StartAttack();
         }
 
+        public void EnableAttack() =>
+            _isAttackActive = true;
+
+        public void DisableAttack() =>
+            _isAttackActive = false;
+
         private void StartAttack()
         {
             transform.LookAt(_playerTransform);
@@ -47,9 +53,15 @@ namespace Code.Enemy
         {
             if (Hit(out Collider hit))
             {
-                PhysicsDebug.DrawDebug(StartPoint(), Cleavage, 1f);
                 hit.transform.GetComponent<IHealth>().TakeDamage(Damage);
             }
+        }
+
+        [UsedImplicitly]
+        private void OnAttackEnded()
+        {
+            Cooldown.Restart();
+            _isAttacking = false;
         }
 
         private Vector3 StartPoint()
@@ -60,7 +72,7 @@ namespace Code.Enemy
 
         private bool Hit(out Collider hit)
         {
-            int hitsCount = Physics.OverlapSphereNonAlloc(StartPoint(), Cleavage, _hits, _layerMask);
+            int hitsCount = Physics.OverlapSphereNonAlloc(transform.position, Cleavage, _hits, _layerMask);
 
             hit = _hits.FirstOrDefault();
 
