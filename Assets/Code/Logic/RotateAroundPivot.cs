@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Code
+namespace Code.Logic
 {
     public class RotateAroundPivot : MonoBehaviour
     {
