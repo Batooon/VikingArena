@@ -49,10 +49,8 @@ namespace Code.Hero
             StateEntered?.Invoke(State);
         }
 
-        public void ExitedState(int stateHash)
-        {
+        public void ExitedState(int stateHash) => 
             StateExited?.Invoke(StateFor(stateHash));
-        }
 
         private AnimatorState StateFor(int stateHash)
         {
