@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 4241d46f19683c04b8e0f3447f4bafce, type: 2}
 --- !u!1 &96099007
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,6 +755,7 @@ GameObject:
   - component: {fileID: 998052244}
   - component: {fileID: 998052243}
   - component: {fileID: 998052246}
+  - component: {fileID: 998052247}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -835,13 +836,31 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 998052242}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4dc5a1fb74b3436da91780f7eaf6ca0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RotationSpeed: 15
   Pivot: {fileID: 1898732366}
+--- !u!114 &998052247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998052242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d95380d45b5142f782aa5d1d9aeb3c24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TopRotationLimit: 35
+  BottomRotationLimit: -10
+  RotationSensitivity: 2
+  Distance: 5
+  OffsetY: 1.5
+  Following: {fileID: 1800136405}
 --- !u!1 &1213797201
 GameObject:
   m_ObjectHideFlags: 0
@@ -1114,6 +1133,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1781142597}
   m_CullTransparentMesh: 1
+--- !u!4 &1800136405 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1781366869225630860, guid: 33b139ad6a97cf14ab200c4341ec16be, type: 3}
+  m_PrefabInstance: {fileID: 607153426}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1830161814
 GameObject:
   m_ObjectHideFlags: 0
