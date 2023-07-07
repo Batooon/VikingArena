@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Code.Infrastructure.Factory;
 using Code.Infrastructure.Services;
 
 namespace Code.Infrastructure.States
@@ -14,13 +15,21 @@ namespace Code.Infrastructure.States
             _states = new Dictionary<Type, IExitableState>()
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, services, sceneLoader),
+                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, services.Single<IGameFactory>()),
+                [typeof(GameLoopState)] = new GameLoopState(this),
             };
         }
-        
+
         public void Enter<TState>() where TState : class, IState
         {
             TState state = ChangeState<TState>();
             state.Enter();
+        }
+
+        public void Enter<TState, TPayload>(TPayload payload) where TState : class, IPayloadedState<TPayload>
+        {
+            TState state = ChangeState<TState>();
+            state.Enter(payload);
         }
 
         private TState ChangeState<TState>() where TState : class, IExitableState

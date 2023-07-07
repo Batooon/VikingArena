@@ -9,4 +9,9 @@ namespace Code.Infrastructure.States
     {
         void Exit();
     }
+
+    public interface IPayloadedState<TPayload> : IExitableState
+    {
+        void Enter(TPayload payload);
+    }
 }
