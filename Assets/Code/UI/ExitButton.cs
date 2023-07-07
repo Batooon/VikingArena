@@ -7,10 +7,10 @@ namespace Code.UI
     {
         public Button Button;
 
-        private void Awake() => 
+        private void Awake() =>
             Button.onClick.AddListener(Quit);
 
-        private void Quit() => 
+        private void Quit() =>
             Application.Quit();
     }
 }
