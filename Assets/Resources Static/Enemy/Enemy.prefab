@@ -519,6 +519,52 @@ Transform:
   m_Father: {fileID: 6219280267469534734}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2561301877118623468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2491709679709664974}
+  - component: {fileID: 7147127293255675951}
+  m_Layer: 0
+  m_Name: DeathCooldown
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2491709679709664974
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2561301877118623468}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7372768260416404755}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7147127293255675951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2561301877118623468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 858ed99483a94131bed606b6a926c47b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 1
+  Ended: 0
 --- !u!1 &2691097901789753363
 GameObject:
   m_ObjectHideFlags: 0
@@ -1404,6 +1450,7 @@ GameObject:
   - component: {fileID: 4309319790293576261}
   - component: {fileID: 9002808813960443858}
   - component: {fileID: 8295521457628767346}
+  - component: {fileID: 3280323707160863380}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -1429,6 +1476,7 @@ Transform:
   - {fileID: 82560759047530844}
   - {fileID: 8897170033733511101}
   - {fileID: 4038368361202436163}
+  - {fileID: 2491709679709664974}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1570,6 +1618,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Animator: {fileID: 7261588803966354043}
+--- !u!114 &3280323707160863380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7861742364905482153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db8b595e9a514cafbeddfb8068e18a78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScoreAmount: 1
+  Health: {fileID: 8295521457628767346}
+  Attack: {fileID: 3564546436723824105}
+  Animator: {fileID: 7261588803966354043}
+  Follow: {fileID: 9006993122531684740}
+  DestroyTimer: {fileID: 7147127293255675951}
 --- !u!1 &8063134977925858939
 GameObject:
   m_ObjectHideFlags: 0
