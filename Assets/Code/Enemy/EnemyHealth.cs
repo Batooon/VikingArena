@@ -16,7 +16,14 @@ namespace Code.Enemy
         public float Current
         {
             get => _current;
-            set => _current = value;
+            set
+            {
+                if (Mathf.Abs(_current - value) > Constants.Epsilon)
+                {
+                    _current = value;
+                    HealthChanged?.Invoke();
+                }
+            }
         }
 
         private float _max;
