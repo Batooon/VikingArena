@@ -1,8 +1,7 @@
 ﻿using Code.Infrastructure.States;
-using Code.UI.Services.Factory;
 using UnityEngine.UI;
 
-namespace Code.UI.Services.Windows
+namespace Code.UI.Windows
 {
     public class MainMenuWindow : WindowBase
     {
@@ -21,7 +20,7 @@ namespace Code.UI.Services.Windows
             StartGameButton.onClick.RemoveListener(StartGame);
         }
 
-        private void StartGame() => 
+        private void StartGame() =>
             StateMachine.Enter<LoadLevelState, string>(PlaySceneName);
     }
 }

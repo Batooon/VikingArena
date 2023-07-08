@@ -1,9 +1,8 @@
 ﻿using Code.Infrastructure.Services.Progress;
 using Code.Infrastructure.States;
-using Code.UI.Services.Factory;
 using UnityEngine.UI;
 
-namespace Code.UI
+namespace Code.UI.Windows
 {
     public class EndGameWindow : WindowBase
     {
