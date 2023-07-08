@@ -27,7 +27,7 @@ namespace Code.Infrastructure.Services.StaticData
         public LevelStaticData ForLevel(string sceneKey) =>
             _levels.TryGetValue(sceneKey, out LevelStaticData staticData) ? staticData : null;
 
-        public WindowConfig ForWindow(WindowId windowId) => 
+        public WindowConfig ForWindow(WindowId windowId) =>
             _windowConfigs.TryGetValue(windowId, out WindowConfig windowConfig) ? windowConfig : null;
 
         public PlayerStaticData GetPlayerData() =>

@@ -38,7 +38,7 @@ namespace Code.Infrastructure.Services.EnemyRespawn
         private void Respawn(GameObject enemy)
         {
             enemy.transform.position = GetNewPosition();
-            
+
             var health = enemy.GetComponent<IHealth>();
             health.Max += 1;
             health.Current = health.Max;
@@ -48,7 +48,7 @@ namespace Code.Infrastructure.Services.EnemyRespawn
 
             var death = enemy.GetComponent<EnemyDeath>();
             death.Restore();
-            
+
             enemy.SetActive(true);
             enemy.GetComponent<Follow>().enabled = true;
             attack.enabled = true;

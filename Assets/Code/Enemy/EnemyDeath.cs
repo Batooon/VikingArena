@@ -32,7 +32,7 @@ namespace Code.Enemy
         private void OnDestroy() =>
             Health.HealthChanged -= OnHealthChanged;
 
-        public void Restore() => 
+        public void Restore() =>
             _died = false;
 
         private void OnHealthChanged()
@@ -57,7 +57,7 @@ namespace Code.Enemy
             Animator.PlayDeath();
         }
 
-        private bool ShouldDie() => 
+        private bool ShouldDie() =>
             !_died && Health.Current <= 0;
 
         private void OnDestroyCooldown()

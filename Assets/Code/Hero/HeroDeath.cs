@@ -1,4 +1,5 @@
 ﻿using System;
+using Code.Infrastructure.Services.StaticData;
 using Code.UI.Services.Factory;
 using Code.UI.Services.Windows;
 using UnityEngine;
@@ -18,7 +19,7 @@ namespace Code.Hero
 
         private IWindowService _windowService;
 
-        public void Construct(IWindowService windowService) => 
+        public void Construct(IWindowService windowService) =>
             _windowService = windowService;
 
         private void Start()
@@ -39,13 +40,13 @@ namespace Code.Hero
             Move.enabled = false;
             Attack.enabled = false;
             Animator.PlayDeath();
-            
+
             _windowService.Open(WindowId.EndGameMenu);
-            
+
             Happened?.Invoke();
         }
 
-        private bool ShouldDie() => 
+        private bool ShouldDie() =>
             _isDead == false && Health.Current <= 0;
     }
 }
