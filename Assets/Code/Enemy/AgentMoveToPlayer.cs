@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 namespace Code.Enemy
 {
-    public class AgentMoveToPlayer : MonoBehaviour
+    public class AgentMoveToPlayer : Follow
     {
         private const float MinimalSquaredDistance = 1f;
 
