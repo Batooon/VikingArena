@@ -7,6 +7,7 @@ namespace Code.Infrastructure.Services.StaticData
     public class LevelStaticData : ScriptableObject
     {
         public string LevelKey;
+        public TerrainData Terrain;
 
         public List<EnemySpawnerData> EnemySpawners;
     }
