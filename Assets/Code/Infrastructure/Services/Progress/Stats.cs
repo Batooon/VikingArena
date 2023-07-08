@@ -5,7 +5,7 @@ namespace Code.Infrastructure.Services.Progress
     [Serializable]
     public class Stats
     {
-        public float Damage;
-        public float Cleavage;
+        public float Damage = 1f;
+        public float Cleavage = .5f;
     }
 }
