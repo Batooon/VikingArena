@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Code.Infrastructure.Factory;
 using Code.Infrastructure.Services;
 using Code.Infrastructure.Services.StaticData;
+using Code.UI.Services.Factory;
 
 namespace Code.Infrastructure.States
 {
@@ -17,7 +18,7 @@ namespace Code.Infrastructure.States
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, services, sceneLoader),
                 [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, services.Single<IGameFactory>(),
-                    services.Single<IStaticDataService>()),
+                    services.Single<IStaticDataService>(), services.Single<IUIFactory>()),
                 [typeof(GameLoopState)] = new GameLoopState(this),
             };
         }

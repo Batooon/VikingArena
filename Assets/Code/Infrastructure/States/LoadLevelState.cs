@@ -3,6 +3,7 @@ using Code.Infrastructure.Services.StaticData;
 using Code.Logic;
 using Code.Logic.Camera;
 using Code.UI;
+using Code.UI.Services.Factory;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,16 +17,18 @@ namespace Code.Infrastructure.States
         private readonly SceneLoader _sceneLoader;
         private readonly IGameFactory _gameFactory;
         private readonly IStaticDataService _staticData;
+        private readonly IUIFactory _uiFactory;
 
         private string _levelName;
 
         public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, IGameFactory gameFactory,
-            IStaticDataService staticData)
+            IStaticDataService staticData, IUIFactory uiFactory)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _gameFactory = gameFactory;
             _staticData = staticData;
+            _uiFactory = uiFactory;
         }
 
         public void Enter(string sceneName)
@@ -41,19 +44,29 @@ namespace Code.Infrastructure.States
 
         private void OnLoaded()
         {
+            InitUIRoot();
             InitGameWorld();
 
             _stateMachine.Enter<GameLoopState>();
         }
 
+        private void InitUIRoot() =>
+            _uiFactory.CreateUIRoot();
+
         private void InitGameWorld()
         {
             GameObject hero = InitHero();
 
+            InitEnemyRespawn();
             InitSpawners();
 
             InitHud(hero);
             CameraFollow(hero);
+        }
+
+        private void InitEnemyRespawn()
+        {
+            _gameFactory.CreateEnemyRespawner(_levelName);
         }
 
         private void InitHud(GameObject hero)
