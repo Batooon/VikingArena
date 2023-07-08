@@ -1,4 +1,5 @@
-﻿using Code.Infrastructure.Services;
+﻿using Code.Hero;
+using Code.Infrastructure.Services;
 using Code.Infrastructure.Services.Input;
 using UnityEngine;
 
@@ -16,6 +17,9 @@ namespace Code.Logic.Camera
         private IInputService _inputService;
         private float _rotationX;
 
+        private bool _shouldRotate = true;
+        private HeroDeath _deathTracker;
+
         private void Awake()
         {
             _inputService = AllServices.Container.Single<IInputService>();
@@ -24,7 +28,9 @@ namespace Code.Logic.Camera
 
         private void LateUpdate()
         {
-            if (Following == null)
+            if (CantRotate())
+                return;
+            if (HasPlayer() == false)
                 return;
 
             Quaternion rotation = Following.rotation * Quaternion.Euler(VerticalRotation(), 0, 0);
@@ -33,8 +39,24 @@ namespace Code.Logic.Camera
             transform.SetPositionAndRotation(position, rotation);
         }
 
-        public void Follow(GameObject following) =>
+        public void Follow(GameObject following)
+        {
             Following = following.transform;
+            _deathTracker = Following.GetComponent<HeroDeath>();
+            _deathTracker.Happened += OnPlayerDeath;
+        }
+
+        private bool CantRotate() =>
+            _shouldRotate == false;
+
+        private bool HasPlayer() => 
+            Following != null;
+
+        private void OnPlayerDeath()
+        {
+            _deathTracker.Happened -= OnPlayerDeath;
+            _shouldRotate = false;
+        }
 
         private float VerticalRotation()
         {
