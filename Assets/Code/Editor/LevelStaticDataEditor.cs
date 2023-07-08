@@ -25,6 +25,7 @@ namespace Code.Editor
                         .ToList();
 
                 levelData.LevelKey = SceneManager.GetActiveScene().name;
+                levelData.Terrain = FindObjectOfType<Terrain>().terrainData;
             }
 
             EditorUtility.SetDirty(target);
