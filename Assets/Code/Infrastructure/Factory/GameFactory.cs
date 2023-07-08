@@ -1,12 +1,15 @@
 using Code.Enemy;
 using Code.Hero;
 using Code.Infrastructure.Services.AssetManagement;
+using Code.Infrastructure.Services.EnemyRespawn;
 using Code.Infrastructure.Services.Input;
 using Code.Infrastructure.Services.Progress;
 using Code.Infrastructure.Services.StaticData;
 using Code.Logic;
 using Code.Logic.EnemySpawners;
 using Code.UI;
+using Code.UI.Services.Factory;
+using Code.UI.Services.Windows;
 using UnityEngine;
 using UnityEngine.AI;
 using Object = UnityEngine.Object;
@@ -19,16 +22,19 @@ namespace Code.Infrastructure.Factory
         private readonly IStaticDataService _staticData;
         private readonly IProgressService _progressService;
         private readonly IInputService _inputService;
+        private readonly IWindowService _windowService;
 
         private GameObject HeroGameObject { get; set; }
+        private EnemyRespawner EnemyRespawner;
 
         public GameFactory(IAssets assets, IStaticDataService staticData, IProgressService progressService,
-            IInputService inputService)
+            IInputService inputService, IWindowService windowService)
         {
             _assets = assets;
             _staticData = staticData;
             _progressService = progressService;
             _inputService = inputService;
+            _windowService = windowService;
         }
 
         public GameObject CreateHero(GameObject at)
@@ -43,6 +49,9 @@ namespace Code.Infrastructure.Factory
 
             var attack = HeroGameObject.GetComponent<HeroAttack>();
             attack.Construct(_inputService, _progressService.Progress.HeroStats);
+
+            var death = HeroGameObject.GetComponent<HeroDeath>();
+            death.Construct(_windowService);
 
             return HeroGameObject;
         }
@@ -76,7 +85,21 @@ namespace Code.Infrastructure.Factory
             attack.EffectiveDistance = monsterData.EffectiveDistance;
             attack.Cleavage = monsterData.Cleavage;
 
+            var death = monster.GetComponent<EnemyDeath>();
+            death.Construct(_progressService.Progress.WorldData);
+
+            EnemyRespawner.AddSpawnedEnemy(monster);
+
             return monster;
+        }
+
+        public void CreateEnemyRespawner(string sceneName)
+        {
+            EnemyRespawner = _assets.Instantiate(AssetPath.EnemyRespawner)
+                .GetComponent<EnemyRespawner>();
+
+            var terrainData = _staticData.ForLevel(sceneName).Terrain;
+            EnemyRespawner.Construct(terrainData, HeroGameObject);
         }
 
         public void CreateSpawner(Vector3 at, MonsterTypeId monsterTypeId)

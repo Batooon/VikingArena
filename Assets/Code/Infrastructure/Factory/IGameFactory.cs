@@ -10,5 +10,6 @@ namespace Code.Infrastructure.Factory
         void CreateSpawner(Vector3 at, MonsterTypeId monsterTypeId);
         GameObject CreateHero(GameObject at);
         GameObject CreateHud();
+        void CreateEnemyRespawner(string sceneName);
     }
 }
