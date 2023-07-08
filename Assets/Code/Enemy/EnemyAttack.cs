@@ -81,5 +81,12 @@ namespace Code.Enemy
 
         private bool CanAttack() =>
             _isAttackActive && !_isAttacking && Cooldown.Ended;
+
+        public void Reset()
+        {
+            _isAttacking = false;
+            _isAttackActive = false;
+            Cooldown.Reset();
+        }
     }
 }
