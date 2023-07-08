@@ -1,3 +1,5 @@
+using Code.UI.Services.Factory;
+
 namespace Code.Infrastructure.Services.StaticData
 {
     public interface IStaticDataService : IService
@@ -6,5 +8,6 @@ namespace Code.Infrastructure.Services.StaticData
         MonsterStaticData ForMonster(MonsterTypeId typeId);
         PlayerStaticData GetPlayerData();
         LevelStaticData ForLevel(string sceneKey);
+        WindowConfig ForWindow(WindowId windowId);
     }
 }
