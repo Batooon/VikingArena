@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Code.Logic.Animations;
 using UnityEngine;
 
@@ -21,9 +22,14 @@ namespace Code.Hero
         public event Action<AnimatorState> StateEntered;
         public event Action<AnimatorState> StateExited;
 
-        public bool IsAttacking => State == AnimatorState.Attack;
+        public bool IsAttacking => StatePerLayer[1] == AnimatorState.Attack;
 
-        public AnimatorState State { get; private set; }
+        public Dictionary<int, AnimatorState> StatePerLayer { get; } = new()
+        {
+            [0] = AnimatorState.Unknown,
+            [1] = AnimatorState.Unknown,
+            [2] = AnimatorState.Unknown,
+        };
 
         private Animator _animator;
 
@@ -45,14 +51,18 @@ namespace Code.Hero
         public void PlayAttack() =>
             _animator.SetTrigger(Attack);
 
-        public void EnteredState(int stateHash)
+        public void EnteredState(int stateHash, int layerId)
         {
-            State = StateFor(stateHash);
-            StateEntered?.Invoke(State);
+            StatePerLayer[layerId] = StateFor(stateHash);
+            StateEntered?.Invoke(StatePerLayer[layerId]);
         }
 
-        public void ExitedState(int stateHash) =>
-            StateExited?.Invoke(StateFor(stateHash));
+        public void ExitedState(int stateHash, int layerId)
+        {
+            var exitedState = StateFor(stateHash);
+
+            StateExited?.Invoke(exitedState);
+        }
 
         private AnimatorState StateFor(int stateHash)
         {

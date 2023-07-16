@@ -12,7 +12,7 @@ namespace Code.Logic.Animations
             base.OnStateEnter(animator, stateInfo, layerIndex);
             FindReader(animator);
 
-            _stateReader.EnteredState(stateInfo.shortNameHash);
+            _stateReader.EnteredState(stateInfo.shortNameHash, layerIndex);
         }
 
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo,
@@ -21,7 +21,7 @@ namespace Code.Logic.Animations
             base.OnStateExit(animator, stateInfo, layerIndex);
             FindReader(animator);
 
-            _stateReader.ExitedState(stateInfo.shortNameHash);
+            _stateReader.ExitedState(stateInfo.shortNameHash, layerIndex);
         }
 
         private void FindReader(Animator animator)

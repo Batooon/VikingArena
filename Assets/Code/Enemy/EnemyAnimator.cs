@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Code.Logic.Animations;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ namespace Code.Enemy
         public event Action<AnimatorState> StateEntered;
         public event Action<AnimatorState> StateExited;
 
+        public Dictionary<int, AnimatorState> StatePerLayer { get; }
         public AnimatorState State { get; private set; }
 
         private Animator _animator;
@@ -43,13 +45,13 @@ namespace Code.Enemy
         public void PlayAttack() =>
             _animator.SetTrigger(Attack);
 
-        public void EnteredState(int stateHash)
+        public void EnteredState(int stateHash, int layerId)
         {
             State = StateFor(stateHash);
             StateEntered?.Invoke(State);
         }
 
-        public void ExitedState(int stateHash) =>
+        public void ExitedState(int stateHash, int layerId) =>
             StateExited?.Invoke(StateFor(stateHash));
 
         private AnimatorState StateFor(int stateHash)
