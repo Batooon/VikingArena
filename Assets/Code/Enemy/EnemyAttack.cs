@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using Code.Hero;
 using Code.Logic;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -28,6 +30,11 @@ namespace Code.Enemy
             _layerMask = 1 << LayerMask.NameToLayer("Player");
         }
 
+        private void Start()
+        {
+            HeroEventsBus.Died += OnPlayerDied;
+        }
+
         private void Update()
         {
             if (CanAttack())
@@ -51,10 +58,8 @@ namespace Code.Enemy
         [UsedImplicitly]
         private void OnAttack()
         {
-            if (Hit(out Collider hit))
-            {
+            if (Hit(out Collider hit)) 
                 hit.transform.GetComponent<IHealth>().TakeDamage(Damage);
-            }
         }
 
         [UsedImplicitly]
@@ -88,5 +93,8 @@ namespace Code.Enemy
             _isAttackActive = false;
             Cooldown.Reset();
         }
+
+        private void OnPlayerDied() => 
+            enabled = false;
     }
 }

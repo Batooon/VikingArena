@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using Code.Hero;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace Code.Enemy
@@ -14,6 +16,11 @@ namespace Code.Enemy
         public void Construct(Transform playerTransform) =>
             _playerTransform = playerTransform;
 
+        private void Start()
+        {
+            HeroEventsBus.Died += OnPlayerDied;
+        }
+
         private void Update()
         {
             if (HeroNotReached())
@@ -27,6 +34,12 @@ namespace Code.Enemy
         {
             if (_playerTransform)
                 Agent.destination = _playerTransform.position;
+        }
+
+        private void OnPlayerDied()
+        {
+            Agent.speed = 0;
+            enabled = false;
         }
     }
 }
