@@ -18,7 +18,7 @@ namespace Code.Logic.EnemySpawners
 
         private void Spawn()
         {
-            _gameFactory.CreateMonster(TypeId, at: transform);
+            _gameFactory.CreateMonster(TypeId, at: transform.position);
         }
     }
 }

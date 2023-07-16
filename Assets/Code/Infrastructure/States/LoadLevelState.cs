@@ -80,7 +80,7 @@ namespace Code.Infrastructure.States
             Camera.main.GetComponent<CameraFollow>().Follow(hero);
 
         private GameObject InitHero() =>
-            _gameFactory.CreateHero(at: GameObject.FindWithTag(InitialPointTag));
+            _gameFactory.CreateHero(at: GameObject.FindWithTag(InitialPointTag).transform.position);
 
         private void InitSpawners()
         {

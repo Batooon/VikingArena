@@ -34,11 +34,11 @@ namespace Code.Infrastructure.Factory
             _windowService = windowService;
         }
 
-        public GameObject CreateHero(GameObject at)
+        public GameObject CreateHero(Vector3 at)
         {
             var heroData = _staticData.GetPlayerData();
 
-            HeroGameObject = AssetProvider.Instantiate(heroData.Prefab, at.transform.position);
+            HeroGameObject = AssetProvider.Instantiate(heroData.Prefab, at);
 
             var health = HeroGameObject.GetComponent<IHealth>();
             health.Current = heroData.Hp;
@@ -63,10 +63,10 @@ namespace Code.Infrastructure.Factory
             return hud;
         }
 
-        public GameObject CreateMonster(MonsterTypeId typeId, Transform at)
+        public GameObject CreateMonster(MonsterTypeId typeId, Vector3 at)
         {
             var monsterData = _staticData.ForMonster(typeId);
-            GameObject monster = Object.Instantiate(monsterData.Prefab, at.position, Quaternion.identity);
+            GameObject monster = Object.Instantiate(monsterData.Prefab, at, Quaternion.identity);
 
             var health = monster.GetComponent<IHealth>();
             health.Current = monsterData.Hp;
