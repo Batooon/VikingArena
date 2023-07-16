@@ -1,7 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Code.Hero;
 using Code.Logic;
+using Code.Logic.Animations;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -51,8 +51,19 @@ namespace Code.Enemy
         {
             transform.LookAt(_playerTransform);
 
+            Animator.StateExited += OnAttackEnded;
             Animator.PlayAttack();
             _isAttacking = true;
+        }
+
+        private void OnAttackEnded(AnimatorState state)
+        {
+            if (state == AnimatorState.Attack)
+            {
+                Cooldown.Restart();
+                _isAttacking = false;
+                Animator.StateExited -= OnAttackEnded;
+            }
         }
 
         [UsedImplicitly]
@@ -60,13 +71,6 @@ namespace Code.Enemy
         {
             if (Hit(out Collider hit)) 
                 hit.transform.GetComponent<IHealth>().TakeDamage(Damage);
-        }
-
-        [UsedImplicitly]
-        private void OnAttackEnded()
-        {
-            Cooldown.Restart();
-            _isAttacking = false;
         }
 
         private Vector3 StartPoint()
