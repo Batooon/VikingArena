@@ -9,15 +9,13 @@ namespace Code.UI.Services.Factory
 {
     public class UIFactory : IUIFactory
     {
-        private readonly IAssets _assets;
         private readonly IStaticDataService _staticData;
         private readonly IProgressService _progressService;
 
         private Transform _uiRoot;
 
-        public UIFactory(IAssets assets, IStaticDataService staticData, IProgressService progressService)
+        public UIFactory(IStaticDataService staticData, IProgressService progressService)
         {
-            _assets = assets;
             _staticData = staticData;
             _progressService = progressService;
         }
@@ -38,7 +36,7 @@ namespace Code.UI.Services.Factory
 
         public void CreateUIRoot()
         {
-            _uiRoot = _assets.Instantiate(AssetPath.UIRootPath).transform;
+            _uiRoot = AssetProvider.Instantiate(AssetPath.UIRootPath).transform;
         }
     }
 }

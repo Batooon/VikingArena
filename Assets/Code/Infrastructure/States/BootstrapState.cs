@@ -49,14 +49,12 @@ namespace Code.Infrastructure.States
         private void RegisterServices()
         {
             _services.RegisterSingle<IInputService>(new StandaloneInputService());
-            _services.RegisterSingle<IAssets>(new AssetProvider());
 
             RegisterStaticData();
 
             RegisterProgress();
 
             _services.RegisterSingle<IUIFactory>(new UIFactory(
-                _services.Single<IAssets>(),
                 _services.Single<IStaticDataService>(),
                 _services.Single<IProgressService>()
             ));
@@ -64,7 +62,6 @@ namespace Code.Infrastructure.States
             _services.RegisterSingle<IWindowService>(new WindowService(_stateMachine, _services.Single<IUIFactory>()));
 
             _services.RegisterSingle<IGameFactory>(new GameFactory(
-                _services.Single<IAssets>(),
                 _services.Single<IStaticDataService>(),
                 _services.Single<IProgressService>(),
                 _services.Single<IInputService>(),

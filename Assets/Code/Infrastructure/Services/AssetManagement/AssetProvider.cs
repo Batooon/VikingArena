@@ -2,27 +2,27 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Services.AssetManagement
 {
-    public class AssetProvider : IAssets
+    public static class AssetProvider
     {
-        public GameObject Instantiate(GameObject prefab, Vector3 at) =>
+        public static GameObject Instantiate(GameObject prefab, Vector3 at) =>
             Object.Instantiate(prefab, at, Quaternion.identity);
 
-        public GameObject Instantiate(GameObject prefab) =>
+        public static GameObject Instantiate(GameObject prefab) =>
             Object.Instantiate(prefab);
 
-        public GameObject Instantiate(string path, Vector3 at)
+        public static GameObject Instantiate(string path, Vector3 at)
         {
             var prefab = Load(path);
             return Instantiate(prefab, at);
         }
 
-        public GameObject Instantiate(string path)
+        public static GameObject Instantiate(string path)
         {
             var prefab = Load(path);
             return Instantiate(prefab);
         }
 
-        private GameObject Load(string path) =>
+        private static GameObject Load(string path) =>
             Resources.Load<GameObject>(path);
     }
 }

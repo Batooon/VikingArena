@@ -8,7 +8,6 @@ using Code.Infrastructure.Services.StaticData;
 using Code.Logic;
 using Code.Logic.EnemySpawners;
 using Code.UI;
-using Code.UI.Services.Factory;
 using Code.UI.Services.Windows;
 using UnityEngine;
 using UnityEngine.AI;
@@ -18,7 +17,6 @@ namespace Code.Infrastructure.Factory
 {
     public class GameFactory : IGameFactory
     {
-        private readonly IAssets _assets;
         private readonly IStaticDataService _staticData;
         private readonly IProgressService _progressService;
         private readonly IInputService _inputService;
@@ -27,10 +25,9 @@ namespace Code.Infrastructure.Factory
         private GameObject HeroGameObject { get; set; }
         private EnemyRespawner EnemyRespawner;
 
-        public GameFactory(IAssets assets, IStaticDataService staticData, IProgressService progressService,
+        public GameFactory(IStaticDataService staticData, IProgressService progressService,
             IInputService inputService, IWindowService windowService)
         {
-            _assets = assets;
             _staticData = staticData;
             _progressService = progressService;
             _inputService = inputService;
@@ -41,7 +38,7 @@ namespace Code.Infrastructure.Factory
         {
             var heroData = _staticData.GetPlayerData();
 
-            HeroGameObject = _assets.Instantiate(heroData.Prefab, at.transform.position);
+            HeroGameObject = AssetProvider.Instantiate(heroData.Prefab, at.transform.position);
 
             var health = HeroGameObject.GetComponent<IHealth>();
             health.Current = heroData.Hp;
@@ -58,7 +55,7 @@ namespace Code.Infrastructure.Factory
 
         public GameObject CreateHud()
         {
-            GameObject hud = _assets.Instantiate(AssetPath.HudPath);
+            GameObject hud = AssetProvider.Instantiate(AssetPath.HudPath);
 
             hud.GetComponentInChildren<ScoreCounter>()
                 .Construct(_progressService.Progress.WorldData);
@@ -95,7 +92,7 @@ namespace Code.Infrastructure.Factory
 
         public void CreateEnemyRespawner(string sceneName)
         {
-            EnemyRespawner = _assets.Instantiate(AssetPath.EnemyRespawner)
+            EnemyRespawner = AssetProvider.Instantiate(AssetPath.EnemyRespawner)
                 .GetComponent<EnemyRespawner>();
 
             var terrainData = _staticData.ForLevel(sceneName).Terrain;
@@ -104,7 +101,7 @@ namespace Code.Infrastructure.Factory
 
         public void CreateSpawner(Vector3 at, MonsterTypeId monsterTypeId)
         {
-            var spawner = _assets.Instantiate(AssetPath.SpawnerPath, at)
+            var spawner = AssetProvider.Instantiate(AssetPath.SpawnerPath, at)
                 .GetComponent<SpawnPoint>();
 
             spawner.Construct(this);
