@@ -1,5 +1,4 @@
-﻿using System;
-using Code.Infrastructure.Services.Input;
+﻿using Code.Infrastructure.Services.Input;
 using Code.Infrastructure.Services.Progress;
 using Code.Logic;
 using JetBrains.Annotations;
