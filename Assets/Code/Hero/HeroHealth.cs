@@ -7,7 +7,6 @@ namespace Code.Hero
     [RequireComponent(typeof(HeroAnimator))]
     public class HeroHealth : MonoBehaviour, IHealth
     {
-        public HeroAnimator Animator;
         public event Action HealthChanged;
 
         private float _current;
@@ -20,6 +19,7 @@ namespace Code.Hero
                 if (Mathf.Abs(_current - value) > Constants.Epsilon)
                 {
                     _current = value;
+                    HeroEventsBus.FireHealthChanged(this);
                     HealthChanged?.Invoke();
                 }
             }
@@ -33,7 +33,7 @@ namespace Code.Hero
                 return;
 
             Current -= damage;
-            Animator.PlayHit();
+            HeroEventsBus.FireGotHit();
         }
     }
 }

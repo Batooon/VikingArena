@@ -18,7 +18,6 @@ namespace Code.Logic.Camera
         private float _rotationX;
 
         private bool _shouldRotate = true;
-        private HeroDeath _deathTracker;
 
         private void Awake()
         {
@@ -42,8 +41,7 @@ namespace Code.Logic.Camera
         public void Follow(GameObject following)
         {
             Following = following.transform;
-            _deathTracker = Following.GetComponent<HeroDeath>();
-            _deathTracker.Happened += OnPlayerDeath;
+            HeroEventsBus.Died += OnPlayerDeath;
         }
 
         private bool CantRotate() =>
@@ -54,7 +52,7 @@ namespace Code.Logic.Camera
 
         private void OnPlayerDeath()
         {
-            _deathTracker.Happened -= OnPlayerDeath;
+            HeroEventsBus.Died -= OnPlayerDeath;
             _shouldRotate = false;
         }
 

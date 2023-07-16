@@ -1,4 +1,5 @@
-﻿using Code.Infrastructure.Services.Input;
+﻿using System;
+using Code.Infrastructure.Services.Input;
 using Code.Infrastructure.Services.Progress;
 using Code.Logic;
 using JetBrains.Annotations;
@@ -26,6 +27,9 @@ namespace Code.Hero
             _layerMask = 1 << LayerMask.NameToLayer("Hittable");
         }
 
+        private void Start() => 
+            HeroEventsBus.Died += OnHeroDied;
+
         private void Update()
         {
             if (CanAttack())
@@ -47,5 +51,8 @@ namespace Code.Hero
 
         private Vector3 StartPoint() =>
             transform.position + Vector3.up;
+
+        private void OnHeroDied() => 
+            enabled = false;
     }
 }

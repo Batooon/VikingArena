@@ -1,4 +1,5 @@
-﻿using Code.Infrastructure.Services;
+﻿using System;
+using Code.Infrastructure.Services;
 using Code.Infrastructure.Services.Input;
 using UnityEngine;
 
@@ -12,10 +13,11 @@ namespace Code.Hero
 
         private IInputService _inputService;
 
-        private void Awake()
-        {
+        private void Awake() => 
             _inputService = AllServices.Container.Single<IInputService>();
-        }
+
+        private void Start() => 
+            HeroEventsBus.Died += OnHeroDied;
 
         private void Update()
         {
@@ -45,5 +47,8 @@ namespace Code.Hero
 
             CharacterController.Move(movementVector * (MovementSpeed * Time.deltaTime));
         }
+
+        private void OnHeroDied() => 
+            enabled = false;
     }
 }

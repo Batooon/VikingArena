@@ -1,6 +1,5 @@
-﻿using System;
-using Code.Infrastructure.Services.StaticData;
-using Code.UI.Services.Factory;
+﻿using Code.Infrastructure.Services.StaticData;
+using Code.Logic;
 using Code.UI.Services.Windows;
 using UnityEngine;
 
@@ -8,13 +7,6 @@ namespace Code.Hero
 {
     public class HeroDeath : MonoBehaviour
     {
-        public HeroHealth Health;
-        public HeroMove Move;
-        public HeroAttack Attack;
-        public HeroAnimator Animator;
-
-        public event Action Happened;
-
         private bool _isDead;
 
         private IWindowService _windowService;
@@ -22,14 +14,12 @@ namespace Code.Hero
         public void Construct(IWindowService windowService) =>
             _windowService = windowService;
 
-        private void Start()
-        {
-            Health.HealthChanged += OnHealthChanged;
-        }
+        private void Start() => 
+            HeroEventsBus.HealthChanged += OnHealthChanged;
 
-        private void OnHealthChanged()
+        private void OnHealthChanged(IHealth health)
         {
-            if (ShouldDie())
+            if (ShouldDie(health))
                 Die();
         }
 
@@ -37,16 +27,12 @@ namespace Code.Hero
         {
             _isDead = true;
 
-            Move.enabled = false;
-            Attack.enabled = false;
-            Animator.PlayDeath();
-
+            HeroEventsBus.FireHeroDiedEvent();
+            
             _windowService.Open(WindowId.EndGameMenu);
-
-            Happened?.Invoke();
         }
 
-        private bool ShouldDie() =>
-            _isDead == false && Health.Current <= 0;
+        private bool ShouldDie(IHealth health) =>
+            _isDead == false && health.Current <= 0;
     }
 }

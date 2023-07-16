@@ -9,6 +9,12 @@ namespace Code.Hero
         public CharacterController CharacterController;
         public HeroAnimator Animator;
 
+        private void Start()
+        {
+            HeroEventsBus.Hit += OnPlayerHit;
+            HeroEventsBus.Died += OnPlayerDied;
+        }
+
         private void Update()
         {
             if (ShouldMove())
@@ -16,6 +22,12 @@ namespace Code.Hero
             else
                 Animator.StopMoving();
         }
+
+        private void OnPlayerHit() => 
+            Animator.PlayHit();
+
+        private void OnPlayerDied() => 
+            Animator.PlayDeath();
 
         private bool ShouldMove() =>
             CharacterController.velocity.sqrMagnitude > MinimalSquaredSpeed;
