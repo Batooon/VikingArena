@@ -4,6 +4,7 @@ using Code.Logic;
 using Code.Logic.Animations;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Code.Enemy
 {
@@ -15,6 +16,7 @@ namespace Code.Enemy
         public float EffectiveDistance;
         public float Damage;
         public float Cleavage;
+        public NavMeshAgent Agent;
 
         private Transform _playerTransform;
         private int _layerMask;
@@ -22,6 +24,8 @@ namespace Code.Enemy
 
         private bool _isAttacking;
         private bool _isAttackActive;
+
+        private float _previousAgentSpeed;
 
         public void Construct(Transform playerTransform)
         {
@@ -49,6 +53,8 @@ namespace Code.Enemy
 
         private void StartAttack()
         {
+            _previousAgentSpeed = Agent.speed;
+            Agent.speed = 0f;
             transform.LookAt(_playerTransform);
 
             Animator.StateExited += OnAttackEnded;
@@ -60,6 +66,7 @@ namespace Code.Enemy
         {
             if (state == AnimatorState.Attack)
             {
+                Agent.speed = _previousAgentSpeed;
                 Cooldown.Restart();
                 _isAttacking = false;
                 Animator.StateExited -= OnAttackEnded;
@@ -69,7 +76,7 @@ namespace Code.Enemy
         [UsedImplicitly]
         private void OnAttack()
         {
-            if (Hit(out Collider hit)) 
+            if (Hit(out Collider hit))
                 hit.transform.GetComponent<IHealth>().TakeDamage(Damage);
         }
 
@@ -98,7 +105,7 @@ namespace Code.Enemy
             Cooldown.Reset();
         }
 
-        private void OnPlayerDied() => 
+        private void OnPlayerDied() =>
             enabled = false;
     }
 }
