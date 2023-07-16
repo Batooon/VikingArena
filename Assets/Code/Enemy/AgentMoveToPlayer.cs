@@ -1,5 +1,4 @@
-﻿using System;
-using Code.Hero;
+﻿using Code.Hero;
 using UnityEngine;
 using UnityEngine.AI;
 
