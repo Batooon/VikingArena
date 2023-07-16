@@ -1,32 +1,31 @@
-using UnityEngine;
+using Code.Hero;
 
 namespace Code.Infrastructure.States
 {
     public class GameLoopState : IState
     {
+        private readonly GameStateMachine _stateMachine;
+
         public GameLoopState(GameStateMachine stateMachine)
         {
+            _stateMachine = stateMachine;
         }
 
         public void Enter()
         {
-            HideAndLockCursor();
+            CursorUtility.HideAndLock();
+            HeroEventsBus.Died += OnPlayerDied;
         }
 
         public void Exit()
         {
-            SetCursorState(true);
+            CursorUtility.ShowAndUnlock();
         }
 
-        private void HideAndLockCursor()
+        private void OnPlayerDied()
         {
-            SetCursorState(false, CursorLockMode.Locked);
-        }
-
-        private void SetCursorState(bool active, CursorLockMode lockMode = CursorLockMode.None)
-        {
-            Cursor.visible = active;
-            Cursor.lockState = lockMode;
+            HeroEventsBus.Died -= OnPlayerDied;
+            _stateMachine.Enter<GameOverState>();
         }
     }
 }

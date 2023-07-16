@@ -20,6 +20,7 @@ namespace Code.Infrastructure.States
                 [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, services.Single<IGameFactory>(),
                     services.Single<IStaticDataService>(), services.Single<IUIFactory>()),
                 [typeof(GameLoopState)] = new GameLoopState(this),
+                [typeof(GameOverState)]=new GameOverState(this),
             };
         }
 
