@@ -22,8 +22,11 @@ namespace Code.Enemy
         public event Action<AnimatorState> StateEntered;
         public event Action<AnimatorState> StateExited;
 
-        public Dictionary<int, AnimatorState> StatePerLayer { get; }
-        public AnimatorState State { get; private set; }
+        public Dictionary<int, AnimatorState> StatePerLayer { get; } = new()
+        {
+            [0] = AnimatorState.Unknown,
+            [1] = AnimatorState.Unknown,
+        };
 
         private Animator _animator;
 
@@ -47,8 +50,8 @@ namespace Code.Enemy
 
         public void EnteredState(int stateHash, int layerId)
         {
-            State = StateFor(stateHash);
-            StateEntered?.Invoke(State);
+            StatePerLayer[layerId] = StateFor(stateHash);
+            StateEntered?.Invoke(StatePerLayer[layerId]);
         }
 
         public void ExitedState(int stateHash, int layerId) =>
