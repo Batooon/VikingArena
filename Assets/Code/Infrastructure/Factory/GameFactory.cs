@@ -50,6 +50,9 @@ namespace Code.Infrastructure.Factory
             var death = HeroGameObject.GetComponent<HeroDeath>();
             death.Construct(_windowService);
 
+            var animation = HeroGameObject.GetComponent<AnimateAlongPlayer>();
+            animation.Construct(_inputService);
+
             return HeroGameObject;
         }
 
