@@ -93,6 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RotationSensitivity: 3
   MovementSpeed: 4
+  RunSpeed: 8
   CharacterController: {fileID: 1845386381477720920}
 --- !u!114 &6923148935919313168
 MonoBehaviour:
@@ -118,7 +119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99608da2882942ee8c862401bfff22fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterController: {fileID: 1845386381477720920}
   Animator: {fileID: 6923148935919313168}
 --- !u!65 &8360036210877866310
 BoxCollider:
