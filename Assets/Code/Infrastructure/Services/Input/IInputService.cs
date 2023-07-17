@@ -6,6 +6,7 @@ namespace Code.Infrastructure.Services.Input
     {
         Vector2 Axis { get; }
         Vector2 RotationAxis { get; }
+        bool IsHoldingRun();
         bool IsAttackPressed();
     }
 }
