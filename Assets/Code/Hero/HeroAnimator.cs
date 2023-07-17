@@ -8,10 +8,12 @@ namespace Code.Hero
     [RequireComponent(typeof(Animator))]
     public class HeroAnimator : MonoBehaviour, IAnimationStateReader
     {
-        private static readonly int IsMoving = Animator.StringToHash("IsMoving");
         private static readonly int Attack = Animator.StringToHash("Attack");
         private static readonly int Hit = Animator.StringToHash("Hit");
         private static readonly int Die = Animator.StringToHash("Die");
+        private static readonly int XVelocity = Animator.StringToHash("x");
+        private static readonly int YVelocity = Animator.StringToHash("y");
+        private static readonly int Run = Animator.StringToHash("Run");
 
         private readonly int _idleStateHash = Animator.StringToHash("Idle");
         private readonly int _runStateHash = Animator.StringToHash("Run");
@@ -42,14 +44,20 @@ namespace Code.Hero
         public void PlayDeath() =>
             _animator.SetTrigger(Die);
 
-        public void Move() =>
-            _animator.SetBool(IsMoving, true);
+        public void StartRunning() => 
+            _animator.SetFloat(Run, 1f);
 
-        public void StopMoving() =>
-            _animator.SetBool(IsMoving, false);
+        public void StopRunning() => 
+            _animator.SetFloat(Run, 0f);
 
         public void PlayAttack() =>
             _animator.SetTrigger(Attack);
+
+        public void SetVelocity(Vector2 velocity)
+        {
+            _animator.SetFloat(XVelocity, velocity.x);
+            _animator.SetFloat(YVelocity, velocity.y);
+        }
 
         public void EnteredState(int stateHash, int layerId)
         {

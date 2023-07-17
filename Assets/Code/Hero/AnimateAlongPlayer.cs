@@ -1,13 +1,17 @@
-﻿using UnityEngine;
+﻿using Code.Infrastructure.Services.Input;
+using UnityEngine;
 
 namespace Code.Hero
 {
     public class AnimateAlongPlayer : MonoBehaviour
     {
-        private const float MinimalSquaredSpeed = .01f;
-
-        public CharacterController CharacterController;
         public HeroAnimator Animator;
+        private IInputService _inputService;
+
+        public void Construct(IInputService inputService)
+        {
+            _inputService = inputService;
+        }
 
         private void Start()
         {
@@ -17,10 +21,12 @@ namespace Code.Hero
 
         private void Update()
         {
-            if (ShouldMove())
-                Animator.Move();
+            Animator.SetVelocity(_inputService.Axis);
+            
+            if (_inputService.IsHoldingRun())
+                Animator.StartRunning();
             else
-                Animator.StopMoving();
+                Animator.StopRunning();
         }
 
         private void OnPlayerHit() => 
@@ -28,8 +34,5 @@ namespace Code.Hero
 
         private void OnPlayerDied() => 
             Animator.PlayDeath();
-
-        private bool ShouldMove() =>
-            CharacterController.velocity.sqrMagnitude > MinimalSquaredSpeed;
     }
 }

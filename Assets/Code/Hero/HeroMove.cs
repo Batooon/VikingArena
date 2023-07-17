@@ -1,5 +1,4 @@
-﻿using System;
-using Code.Infrastructure.Services;
+﻿using Code.Infrastructure.Services;
 using Code.Infrastructure.Services.Input;
 using UnityEngine;
 
@@ -9,6 +8,7 @@ namespace Code.Hero
     {
         public float RotationSensitivity;
         public float MovementSpeed;
+        public float RunSpeed;
         public CharacterController CharacterController;
 
         private IInputService _inputService;
@@ -45,7 +45,11 @@ namespace Code.Hero
 
             movementVector += Physics.gravity;
 
-            CharacterController.Move(movementVector * (MovementSpeed * Time.deltaTime));
+            var speed = MovementSpeed;
+            if (_inputService.IsHoldingRun())
+                speed = RunSpeed;
+
+            CharacterController.Move(movementVector * (speed * Time.deltaTime));
         }
 
         private void OnHeroDied() => 
