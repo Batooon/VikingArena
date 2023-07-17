@@ -93,6 +93,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RotationSensitivity: 3
   MovementSpeed: 4
+  BackwardsSpeed: 3
+  RunBackwardsSpeed: 3.5
   RunSpeed: 8
   CharacterController: {fileID: 1845386381477720920}
 --- !u!114 &6923148935919313168

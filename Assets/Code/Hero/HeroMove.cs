@@ -8,6 +8,8 @@ namespace Code.Hero
     {
         public float RotationSensitivity;
         public float MovementSpeed;
+        public float BackwardsSpeed;
+        public float RunBackwardsSpeed;
         public float RunSpeed;
         public CharacterController CharacterController;
 
@@ -43,13 +45,25 @@ namespace Code.Hero
                 movementVector.Normalize();
             }
 
+            var direction = Vector3.Dot(transform.forward, movementVector);
+            
             movementVector += Physics.gravity;
 
-            var speed = MovementSpeed;
-            if (_inputService.IsHoldingRun())
-                speed = RunSpeed;
+            var speed = CalculateSpeed(direction);
 
             CharacterController.Move(movementVector * (speed * Time.deltaTime));
+        }
+
+        private float CalculateSpeed(float direction)
+        {
+            var speed = MovementSpeed;
+
+            if (direction <= 0)
+                speed = BackwardsSpeed;
+
+            if (_inputService.IsHoldingRun())
+                speed = direction <= 0 ? RunBackwardsSpeed : RunSpeed;
+            return speed;
         }
 
         private void OnHeroDied() => 
