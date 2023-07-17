@@ -45,18 +45,18 @@ namespace Code.Hero
             _animator.SetTrigger(Die);
 
         public void StartRunning() => 
-            _animator.SetFloat(Run, 1f);
+            _animator.SetFloat(Run, 1f, .1f, Time.deltaTime);
 
         public void StopRunning() => 
-            _animator.SetFloat(Run, 0f);
+            _animator.SetFloat(Run, 0f, .1f, Time.deltaTime);
 
         public void PlayAttack() =>
             _animator.SetTrigger(Attack);
 
         public void SetVelocity(Vector2 velocity)
         {
-            _animator.SetFloat(XVelocity, velocity.x);
-            _animator.SetFloat(YVelocity, velocity.y);
+            _animator.SetFloat(XVelocity, velocity.x, .1f, Time.deltaTime);
+            _animator.SetFloat(YVelocity, velocity.y, .1f, Time.deltaTime);
         }
 
         public void EnteredState(int stateHash, int layerId)
